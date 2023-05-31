@@ -1,0 +1,151 @@
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
+  
+:root{
+  --Blue-color: #2D9CDB;
+  --Pink-color: #d81587;
+  --Grey-color: #4F4F4F;
+  --White-color: #FFFFFF;
+  --Black-color: #000000;
+  --LightGrey-color: #828282;
+  --Transition: all 0.3s ease-in-out;
+}
+
+*{
+  padding: 5px;
+  margin: 5px;
+  box-sizing: border-box;
+}
+body{
+  font-size: 1.5rem;
+  line-height: 1.5;
+  font-family: 'Inter', sans-serif;
+  color: var(--Black-color);
+}
+
+ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a{
+  text-decoration: none;
+  color: var(--Black-color);
+}
+button{
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--Black-color);
+}
+img{
+  width: 100%;
+  display: block;
+}
+input{
+  font-family: 'Inter', sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: var(--Black-color);
+}
+.resize-animation-stopper *{
+  animation: none !important;
+  transition: none !important;
+}
+
+.bg-pink{
+  background-color: var(--Pink-color);
+}
+.bg-blue{
+  background-color: var(--Blue-color);
+}
+.bg-white{
+  background-color: var(--White-color);
+}
+
+.text-black{
+  color: var(--Black-color);
+}
+.text-white{
+  color: var(--White-color);
+}
+.text-blue{
+  color: var(--Blue-color);
+}
+.text-light-grey{
+  color: var(--LightGrey-color);
+}
+.text-uppercase{
+  text-transform: uppercase;
+}
+.text-center{
+  text-align: center;
+}
+.text-capitalize{
+  text-transform: capitalize;
+}
+.text-italic{
+  font-style: italic;
+}
+
+.fw-3{font-weight: 300;}
+.fw-4{font-weight: 400;}
+.fw-5{font-weight: 500;}
+.fw-6{font-weight: 600;}
+.fw-7{font-weight: 700;}
+.fw-8{font-weight: 800;}
+.fw-9{font-weight: 900;}
+
+.fs-15{font-size: 1.5rem;}
+.fs-16{font-size: 1.6rem;}
+.fs-17{font-size: 1.7rem;}
+.fs-18{font-size: 1.8rem;}
+.fs-19{font-size: 1.9rem;}
+.fs-20{font-size: 2rem;}
+.fs-22{font-size: 2.2rem;}
+.fs-24{font-size: 2.4rem;}
+.fs-26{font-size: 2.6rem;}
+
+.ls-1{letter-spacing: 1px;}
+.ls-2{letter-spacing: 2px;}
+
+.flex{
+  display: flex;
+  align-items: center;
+}
+
+.flex-column{
+  display: flex;
+  flex-direction: column;
+}
+
+.flex-sb{
+  display: flex;
+  justify-content: space-between;
+}
+
+.flex-c{
+  display: flex;
+  justify-content: center;
+}
+
+.grid{
+  display: grid;
+}
+
+.container{
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+.section-title h2{
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 18px 0 24px 0;
+}
+
