@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css';
 import Logoimg from '../../images/Logo.png';
@@ -8,14 +8,15 @@ const Navbar = () => {
   const handleNavbar = () => setShowMenu(!showMenu);
 
   return (
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
-      <div class="container-fluid">
+    <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <div className="container-fluid">
         <Link to="/" className="navbar-brand flex">
-          <img src={Logoimg} alt="Site Logo" />
-          <span className="text-uppercase fw-7 fs-24 ls-1">BooksCentral</span>
+          <img src={Logoimg} alt="Site Logo" className="w-100" />
+          <span className="text-uppercase fw-7 fs-24 ls-1 d-none d-sm-block">BooksCentral</span>
+          <span className="text-uppercase fw-7 fs-24 ls-1 d-sm-none">BC</span>
         </Link>
         <button
-          class="navbar-toggler"
+          className="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
           data-bs-target="#navbarNavAltMarkup"
@@ -25,19 +26,19 @@ const Navbar = () => {
           onClick={handleNavbar}
         >
           <span
-            class="navbar-toggler-icon"
-            style={{ color: `${showMenu ? "#fff" : "#010101"}` }}
+            className="navbar-toggler-icon navbar-toggler-icon-white"
+            style={{ color: `${showMenu ? '#fff' : '#010101'}` }}
           ></span>
         </button>
       </div>
 
       <div
-        class="collapse navbar-collapse"
+        className="collapse navbar-collapse"
         id="navbarNavAltMarkup"
-        style={{ display: showMenu ? "block" : "none" }}
+        style={{ display: showMenu ? 'block' : 'none' }}
       >
-        <ul class="navbar-nav">
-          <li class="nav-item">
+        <ul className="navbar-nav">
+          <li className="nav-item">
             <Link to="/about" className="nav-link active">
               Sobre
             </Link>
@@ -49,6 +50,6 @@ const Navbar = () => {
       </div>
     </nav>
   );
-}
+};
 
-export default Navbar
+export default Navbar;

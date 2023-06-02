@@ -11,8 +11,8 @@
 }
 
 *{
-  padding: 5px;
-  margin: 5px;
+  padding: 0;
+  margin: 0;
   box-sizing: border-box;
 }
 body{
@@ -140,7 +140,7 @@ input{
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  padding: 0 15px;
+  padding: 0 2rem;
 }
 
 .section-title h2{
