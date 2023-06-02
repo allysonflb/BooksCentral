@@ -1,0 +1,16 @@
+.header-content{
+    min-height: 75vh;
+    background: linear-gradient(rgba(145, 97, 20, 0.167), rgba(221, 146, 26, 0.787)), url("../../images/Home.jpeg") center/cover no-repeat;
+    flex-direction: column;
+}
+
+.header-title{
+    font-size: 4rem;
+}
+
+.header-text{
+    margin-top: -1.2rem;
+    margin-bottom: 2.8rem;
+    opacity: 0.9;
+    max-width: 770px;
+}
