@@ -37,13 +37,13 @@ const Navbar = () => {
         id="navbarNavAltMarkup"
         style={{ display: showMenu ? 'block' : 'none' }}
       >
-        <ul className="navbar-nav ms-auto">
+        <ul className="navbar-nav ms-auto custom-nav">
           <li className="nav-item">
             <Link to="/about" className="nav-link active">
               Sobre
             </Link>
-            <Link to="/contact" className="nav-link active">
-              Contato
+            <Link to="/" className="nav-link active">
+              Home
             </Link>
           </li>
         </ul>
