@@ -5,7 +5,6 @@ import Loading from '../Loader/Loader';
 import coverImg from '../../images/capa_nao_encontrada.jpeg';
 import './BookList.css';
 
-//https://covers.openlibrary.org/b/id/240727-S.jpg
 
 const BookList = () => {
   const {loading, books, resultTitle} = useGlobalContext();
@@ -30,7 +29,7 @@ const BookList = () => {
         </div>
         <div className="booklist-content grid">
           {
-            booksWithCovers.slice(0, 30).map((item, index) => {
+            booksWithCovers.map((item, index) => {
               return (
                 <Book key={index} {...item} />
               )
