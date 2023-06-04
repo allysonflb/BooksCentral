@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom';
 import Loading from '../Loader/Loader';
-import coverImg from '../../images/capa_nao_encontrada.jpeg';
+import coverImg from '../../images/capa_nao_encontrada..jpeg';
 import './BookDetails.css';
 import { useNavigate } from 'react-router-dom';
 

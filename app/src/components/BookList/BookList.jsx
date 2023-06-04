@@ -2,7 +2,7 @@ import React from 'react';
 import { useGlobalContext } from '../../content';
 import Book from '../BookList/Book';
 import Loading from '../Loader/Loader';
-import coverImg from '../../images/capa_nao_encontrada.jpeg';
+import coverImg from '../../images/capa_nao_encontrada..jpeg';
 import './BookList.css';
 
 
