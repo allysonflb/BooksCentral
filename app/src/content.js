@@ -15,23 +15,27 @@ const AppProvider = ({children}) => {
             const response = await fetch(`${url}${searchTerm}`);
             const data = await response.json();
             const {docs} = data;
-            
-           
+
             if (docs) {
                 const newBooks = docs.slice(0, 20).map((bookSingle) => {
                     const {key, author_name, cover_i, edition_count, first_publish_year, title} = bookSingle;
+                    let author = author_name;
+                    if (author_name === undefined) {
+                        author = "Autor desconhecido";
+                    }
                     return {
                         id: key,
-                        author: author_name,
+                        author: author,
                         cover_id: cover_i,
                         edition_count: edition_count,
                         first_publish_year: first_publish_year,
                         title: title,
                     }
                 });
-                
+                console.log("content");
+                console.log(newBooks);
                 setBooks(newBooks);    
-            
+
                 if(newBooks.length > 1){
                     setResultTitle("Resultados da pesquisa");
                 } else {
