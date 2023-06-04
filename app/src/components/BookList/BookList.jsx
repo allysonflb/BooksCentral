@@ -2,13 +2,13 @@ import React from 'react';
 import { useGlobalContext } from '../../content';
 import Book from '../BookList/Book';
 import Loading from '../Loader/Loader';
-import coverImg from '../../images/Capa_nao_encontrada.jpeg';
+import coverImg from '../../images/capa_nao_encontrada.jpeg';
 import './BookList.css';
 
 //https://covers.openlibrary.org/b/id/240727-S.jpg
 
 const BookList = () => {
-  const {isLoading, books, resultTitle} = useGlobalContext();
+  const {loading, books, resultTitle} = useGlobalContext();
   const booksWithCovers = books.map((singleBook) => {
     return{
       ...singleBook,
@@ -18,11 +18,9 @@ const BookList = () => {
     }
   });
 
-  console.log(booksWithCovers);
-
-  if (isLoading){
-    return <Loading />
-  };
+  if (loading)
+    return <Loading />;
+  
 
   return (
     <section className="booklist">

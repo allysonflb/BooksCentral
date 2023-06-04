@@ -1,0 +1,81 @@
+.booklist, .book-details{
+    padding: 3rem 0;
+    background-color: white;
+}
+
+.booklist-content{
+    gap: 2rem;
+}
+
+.books.info{
+    padding: 3rem 2rem;
+    border-radius: 4px;
+    background-color: var(--White-color);
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px 0px;
+    transition: var(--Transition);
+}
+
+.books-info:hover{
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 5px 15px 0px;
+}
+
+.books-info-img img{
+    max-width: 180px;
+    margin-right: auto;
+    margin-left: auto;
+}
+
+.books-info-item{
+    margin-top: 2rem;
+}
+
+.books-info-itens.title{
+    line-height: 1.4;
+    margin-bottom: 0.8rem;
+}
+
+.books-info-itens.author{
+    line-height: 1.4;
+    margin-bottom: 0.2rem;
+}
+
+.books-info-itens:not(.books-info-itens.title) span:last-child{
+    opacity: 0.8;
+}
+
+.books-info-itens.publish-year{
+    opacity: 0.8;
+    font-style: italic;
+    font-size: 14px;
+}
+
+@media screen and (min-width: 768px){
+    .booklist-content{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (min-width: 992px){
+    .booklist-content{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .books-info-img img{
+        max-width: 150px;
+    }
+}
+
+@media screen and (min-width: 1200px){
+    .booklist-content{
+        grid-template-columns: repeat(4, 1fr);
+    }
+    .books-info-img img{
+        max-width: 180px;
+    }
+}
+    
+
+
+
+
+
