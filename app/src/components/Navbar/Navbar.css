@@ -15,6 +15,9 @@
     width: 100%;
 }
 
+.custom-nav{
+    margin-right: 2rem;
+}
 
 .navbar-content{
     display:flex;
@@ -32,6 +35,7 @@
 
 .nav-item{
     margin-bottom: 1.4rem;
+    margin-left: 1rem;
 }
 
 .nav-link{
@@ -40,34 +44,4 @@
 
 .nav-link:hover{
     color: var(--White-color);
-}
-
-@media screen and (min-width: 992px){
-    .navbar-collapse{
-        position: relative;
-        height: auto;
-        padding: 0;
-        width: 100%;
-        background-color: transparent;
-        transform: translateX(0);
-        justify-content: flex-end;
-    }
-    .navbar-toggler-btn{
-        display: block;
-
-    }
-    .nav-item{
-        margin-bottom: 0;
-        margin-left: 3rem;
-    }
-    .nav-link{
-        color: var(--Black-color);
-        font-size: 1.7rem;
-        font-weight: 500!important;
-        opacity: 0.7;
-    }
-    .navbar-nav{
-        display: flex;
-
-    }
 }
