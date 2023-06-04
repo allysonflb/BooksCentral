@@ -57,29 +57,50 @@ const BookDetails = () => {
     <section className="book-details">
       <div className="container-fluid">
         <button type = 'button' className = 'btn btn-outline-dark custom-btn' onClick = {() => navigate(-1)}>Voltar</button>
-        <div className="book-details-content grid">
-          <div className="book-details-img">
+        <div className="row book-details-content">
+          <div className="col-md-4 book-details-img">
             <img src={books?.covers} alt = "capa do livro"/>
           </div>
-          <div className="book-details-info">
-            <div className="book-details-item title">
-              <h1>Título: </h1>
-              <h2>{books?.title}</h2>
+          <div className="col-md-8 book-details-info">
+            <div className="row book-details-item title">
+              <div className="col-md-2">
+                <h1>Título: </h1>
+              </div>
+              <div className="col-md-10">
+                <h2>{books?.title}</h2>
+              </div>
             </div>
-            <div className="book-details-item description">
-              <span> {books?.description} </span>
+            <div className="row book-details-item description">
+              <div className="col-md-2">
+                <h2>Descrição: </h2>
+              </div>
+              <div className="col-md-10">
+                <span> {books?.description} </span>
+              </div>
             </div>
-            <div className="book-details-item">
-              <h2>Lugares: </h2>
-              <span>{books?.subject_places}</span>
+            <div className="row book-details-item">
+              <div className="col-md-2">
+                <h2>Lugares: </h2>
+              </div>
+              <div className="col-md-10">
+                <span>{books?.subject_places}</span>
+              </div>
             </div>
-            <div className="book-details-item">
-              <h2>Datas: </h2>
-              <span>{books?.subject_times}</span>
+            <div className="row book-details-item">
+              <div className="col-md-2">
+                <h2>Datas: </h2>
+              </div>
+              <div className="col-md-10">
+                <span>{books?.subject_times}</span>
+              </div>
             </div>
-            <div className="book-details-item">
-              <h2>Assuntos: </h2>
-              <span>{books?.subjects}</span>
+            <div className="row book-details-item">
+              <div className="col-md-2">
+                <h2>Assuntos: </h2>
+              </div>
+              <div className="col-md-10">
+                <span>{books?.subjects}</span>
+              </div>
             </div>
           </div>
         </div>
