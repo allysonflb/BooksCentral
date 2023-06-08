@@ -67,3 +67,5 @@ Contribuições são bem-vindas! Se você tiver alguma ideia, sugestão ou encon
 ### Licença
 
 Este projeto está licenciado sob a Licença MIT.
+
+
