@@ -1,70 +1,63 @@
-# Getting Started with Create React App
+# Books Central
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![Website](https://img.shields.io/website?label=Books%20Central&style=flat-square&url=https%3A%2F%2Fbooks-central.vercel.app%2F)](https://books-central.vercel.app/)
 
-## Available Scripts
+> Bem-vindo ao Books Central! Uma central para amantes de livros.
 
-In the project directory, you can run:
+O Books Central é um website projetado para entusiastas de livros descobrirem e explorarem seus livros favoritos. Se você está procurando descobrir novos livros, o Books Central é o lugar certo.
 
-### `npm start`
+## Recursos
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- Navegue por uma vasta coleção de livros de vários gêneros.
+- Descubra informações sobre os livros desejados.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Tecnologias Utilizadas
 
-### `npm test`
+- Front-end: HTML, CSS, JavaScript, React e Bootstrap 5
+- Back-end: OpenLibrary API
+- Hospedagem: Vercel
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Capturas de Tela
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Aqui estão algumas capturas de tela do Books Central em ação:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Página Inicial
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![Página Inicial](screenshots/home.png)
 
-### `npm run eject`
+### Busca de livros
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![Busca de livros](screenshots/books_search.png)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Detalhes do Livro
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![Detalhes do Livro](screenshots/book_details.png)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+## Começando
 
-## Learn More
+### Pré-requisitos
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Node.js (versão 18.16.0)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Instalação
 
-### Code Splitting
+1. Clone o repositório:
+    git clone https://github.com/allysonflb/BooksCentral.git
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+2. Instale as dependências: 
+    cd BooksCentral
+    npm install
 
-### Analyzing the Bundle Size
+3. Inicie a aplicação:
+    npm start
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+4. Abra o seu navegador e visite http://localhost:3000 para acessar a BooksCentral.     
 
-### Making a Progressive Web App
+### Contribuindo
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+Contribuições são bem-vindas! Se você tiver alguma ideia, sugestão ou encontrar algum problema, por favor, abra uma issue ou envie um pull request.
 
-### Advanced Configuration
+### Licença
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Este projeto está licenciado sob a Licença MIT.
