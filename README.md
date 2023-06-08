@@ -4,7 +4,7 @@
 
 > Bem-vindo ao Books Central! Uma central para amantes de livros.
 
-O Books Central é um website projetado para entusiastas de livros descobrirem e explorarem seus livros favoritos. Se você está procurando descobrir novos livros, o Books Central é o lugar certo.
+O Books Central é um website projetado para entusiastas de livros descobrirem e explorarem seus livros favoritos. Se você está procurando descobrir novos livros, a Books Central é o lugar certo.
 
 ## Recursos
 
@@ -43,14 +43,20 @@ Aqui estão algumas capturas de tela do Books Central em ação:
 ### Instalação
 
 1. Clone o repositório:
-    git clone https://github.com/allysonflb/BooksCentral.git
 
-2. Instale as dependências: 
-    cd BooksCentral
-    npm install
+   - git clone https://github.com/allysonflb/BooksCentral.git
+
+2. Instale as dependências:
+
+
+   - cd BooksCentral
+    
+   - npm install
 
 3. Inicie a aplicação:
-    npm start
+
+
+   - npm start
 
 4. Abra o seu navegador e visite http://localhost:3000 para acessar a BooksCentral.     
 
@@ -61,3 +67,5 @@ Contribuições são bem-vindas! Se você tiver alguma ideia, sugestão ou encon
 ### Licença
 
 Este projeto está licenciado sob a Licença MIT.
+
+
