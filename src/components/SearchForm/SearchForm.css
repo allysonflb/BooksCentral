@@ -5,9 +5,9 @@
   }
   
   .custom-input {
-    border-radius: 5px; /* Define o raio da borda arredondada do input */
-    border: 1px solid #ccc; /* Define a cor e a espessura da borda do input */
-    padding: 5px; /* Define o espaçamento interno do input */
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    padding: 5px; 
     align-items: center;
   }
   
@@ -28,21 +28,4 @@
   } 
 
 
-/* .form-control{
-    padding: 1.4rem 2.8rem;
-    border-radius: 3.8rem;
-} */
-
-
-  /* input[type="search"] {
-    border-radius: 5px;
-    padding: 10px;
-    font-size: 16px;
-    border: none;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
-    width: 600px;
-    max-width: 100%;
-  }
-
-  */
   
