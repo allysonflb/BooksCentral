@@ -43,13 +43,18 @@ Aqui estão algumas capturas de tela do Books Central em ação:
 ### Instalação
 
 1. Clone o repositório:
+
     git clone https://github.com/allysonflb/BooksCentral.git
 
-2. Instale as dependências: 
+2. Instale as dependências:
+
+
     cd BooksCentral
     npm install
 
 3. Inicie a aplicação:
+
+
     npm start
 
 4. Abra o seu navegador e visite http://localhost:3000 para acessar a BooksCentral.     
