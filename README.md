@@ -4,7 +4,7 @@
 
 > Bem-vindo ao Books Central! Uma central para amantes de livros.
 
-O Books Central é um website projetado para entusiastas de livros descobrirem e explorarem seus livros favoritos. Se você está procurando descobrir novos livros, o Books Central é o lugar certo.
+O Books Central é um website projetado para entusiastas de livros descobrirem e explorarem seus livros favoritos. Se você está procurando descobrir novos livros, a Books Central é o lugar certo.
 
 ## Recursos
 
