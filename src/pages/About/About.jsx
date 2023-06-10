@@ -15,19 +15,43 @@ const About = () => {
             <img src={aboutImg} alt="about" />
           </Col>
           <Col md={6} className="about-text">
-            <h2 className="about-title fs-26 ls-1">BooksCentral</h2>
-            <h6>
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Alias, et
-              soluta! Accusantium autem dolores repudiandae sed porro cupiditate
-              cumque eum libero, impedit exercitationem iure repellat adipisci
-              magnam necessitatibus, ducimus vero.
-            </h6>
-            <h6>
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Reiciendis, rem odio. Nulla sapiente, iste minus, quod eaque
-              asperiores non blanditiis similique ipsam excepturi a optio
-              exercitationem et inventore impedit voluptas.
-            </h6>
+            <div className="about-container grid">
+              <h2 className="about-title">Bem-vindo ao BooksCentral</h2>
+              <p className="about-description">
+                No BooksCentral, estamos apaixonados por livros e acreditamos no
+                poder que eles têm de transformar vidas. Nossa missão é ajudar
+                você visitante a encontrar livros que deseja conhecer,
+                fornecendo uma plataforma onde você pode descobrir, compartilhar
+                e explorar uma vasta gama de livros emocionantes.
+              </p>
+              <p className="about-description">
+                O BooksCentral é um projeto acadêmico que nasceu de uma ideia
+                apaixonante.
+              </p>
+              <p className="about-description">
+                Comece a explorar hoje mesmo a vasta quantidade de livros
+                disponibilizados a serem buscados.
+              </p>
+            </div>
+            <div className="made-with-love">
+              <p>
+                Made with ♥ by <span className="text-danger">Allyson</span>
+              </p>
+              <div className="social-icons grid">
+                <a href="https://www.linkedin.com/in/allysonflb/" target="_blank" rel="noreferrer">
+                  <img
+                    src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge"
+                    alt="linkedin logo"
+                  />
+                </a>
+                <a href="https://twitter.com/allysonflb" target="_blank" rel="noreferrer">
+                  <img
+                    src="https://img.shields.io/static/v1?message=Twitter&logo=twitter&label=&color=1DA1F2&logoColor=white&labelColor=&style=for-the-badge"
+                    alt="twitter logo"
+                  />
+                </a>
+              </div>
+            </div>
           </Col>
         </Row>
       </Container>
