@@ -26,12 +26,12 @@ const About = () => {
                 e explorar uma vasta gama de livros emocionantes.
               </p>
               <p className="about-description">
-                O BooksCentral é um projeto acadêmico que nasceu de uma ideia
-                apaixonante.
-              </p>
-              <p className="about-description">
                 Comece a explorar hoje mesmo a vasta quantidade de livros
                 disponibilizados a serem buscados.
+              </p>
+              <p className="about-description">
+                O BooksCentral é um projeto acadêmico que nasceu de uma ideia
+                apaixonante.
               </p>
             </div>
             <div className="made-with-love">
@@ -45,7 +45,9 @@ const About = () => {
                   rel="noreferrer"
                 >
                   <img
-                    src={"https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge"}
+                    src={
+                      "https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge"
+                    }
                     alt="linkedin logo"
                   />
                 </a>
@@ -54,10 +56,7 @@ const About = () => {
                   target="_blank"
                   rel="noreferrer"
                 >
-                  <img
-                    src={gitimg}
-                    alt="github logo"
-                  />
+                  <img src={gitimg} alt="github logo" />
                 </a>
               </div>
             </div>
