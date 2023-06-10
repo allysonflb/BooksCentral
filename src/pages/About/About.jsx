@@ -1,6 +1,7 @@
 import React from "react";
 import "./About.css";
 import aboutImg from "../../images/Sobre.jpeg";
+import gitimg from "../../images/GitHub_Logo.png";
 import { Container, Row, Col } from "react-bootstrap";
 
 const About = () => {
@@ -44,18 +45,18 @@ const About = () => {
                   rel="noreferrer"
                 >
                   <img
-                    src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge"
+                    src={"https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge"}
                     alt="linkedin logo"
                   />
                 </a>
                 <a
-                  href="https://twitter.com/allysonflb"
+                  href="https://github.com/allysonflb"
                   target="_blank"
                   rel="noreferrer"
                 >
                   <img
-                    src="https://img.shields.io/static/v1?message=Twitter&logo=twitter&label=&color=1DA1F2&logoColor=white&labelColor=&style=for-the-badge"
-                    alt="twitter logo"
+                    src={gitimg}
+                    alt="github logo"
                   />
                 </a>
               </div>
