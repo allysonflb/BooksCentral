@@ -1,4 +1,4 @@
-# Books Central
+# BooksCentral
 
 [![Website](https://img.shields.io/website?label=Books%20Central&style=flat-square&url=https%3A%2F%2Fbooks-central.vercel.app%2F)](https://books-central.vercel.app/)
 
