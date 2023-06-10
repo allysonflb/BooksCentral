@@ -12,10 +12,11 @@
 }
 
 .about-title {
-  margin: 1rem 5.5rem;
+  margin: 1rem 6rem;
 }
 .about-img img {
   max-width: 500px;
+  margin: 0 1rem;
 }
 .about-text p {
   margin: 1rem 1rem;
@@ -37,6 +38,13 @@
 }
 
 @media screen and (max-width: 768px) {
+  .section-title {
+    margin: 1rem 0rem;
+  }
+  .about-img img {
+    margin: 0 0rem;
+  }
+
   .about-content.grid {
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 1px;
@@ -55,6 +63,12 @@
 }
 
 @media screen and (min-width: 768px) and (max-width: 1024px) {
+  .section-title {
+    margin: 1rem 0rem;
+  }
+  .about-img img {
+    margin: 0 0rem;
+  }
   .social-icons img {
     width: auto;
     margin: 1rem 1rem;
