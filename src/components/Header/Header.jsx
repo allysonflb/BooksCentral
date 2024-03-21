@@ -3,6 +3,7 @@ import Navbar from '../Navbar/Navbar';
 import SearchForm from '../SearchForm/SearchForm';
 import './Header.css';
 import BookList from '../BookList/BookList';
+import { Analytics } from '@vercel/analytics';
 
 const Header = () => {
   return (
@@ -19,6 +20,7 @@ const Header = () => {
             ferendis laudantium, est sit adipisci voluptatem modi quo culpa ratione!
           </p>
           <SearchForm />
+          <Analytics />
         </div>
       </header>
     </div>
