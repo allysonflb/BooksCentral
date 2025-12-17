@@ -12,7 +12,7 @@ const AppProvider = ({children}) => {
     const fetchBooks = useCallback(async () => {
         setLoading(true);
         try {
-            const response = await fetch(`${url}${searchTerm}`);
+            const response = await fetch(`${url}${encodeURIComponent(searchTerm)}`);
             const data = await response.json();
             const {docs} = data;
 
