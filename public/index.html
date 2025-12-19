@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/Logo.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://covers.openlibrary.org; connect-src 'self' https://openlibrary.org https://covers.openlibrary.org;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https://covers.openlibrary.org https://img.shields.io; connect-src 'self' https://openlibrary.org https://covers.openlibrary.org;">
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
@@ -18,15 +18,5 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      let resizeTimer;
-      window.addEventListener("resize", () => {
-        document.body.classList.add("resize-animation-stopper");
-        clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(() => {
-          document.body.classList.remove("resize-animation-stopper");
-        }, 400);
-      });
-    </script>
   </body>
 </html>
