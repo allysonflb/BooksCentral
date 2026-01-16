@@ -9,7 +9,7 @@ import Home from './pages/Home/Home';
 import About from './pages/About/About';
 import BookList from './components/BookList/BookList';
 import BookDetails from './components/BookDetails/BookDetails';
-import Bootstrap from 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
