@@ -45,4 +45,12 @@ describe('BookCard Component', () => {
     // Não deve tentar renderizar autores se não houver
     expect(screen.queryByText(/Por:/i)).not.toBeInTheDocument();
   });
+
+  it('renders correctly when author_name is an empty array', () => {
+    const bookEmptyAuthors = { ...mockBookWithoutCover, author_name: [] };
+    render(<BookCard book={bookEmptyAuthors} />);
+    expect(screen.getByText(/Another Story/i)).toBeInTheDocument();
+    // Não deve renderizar "Por:" quando não há autores
+    expect(screen.queryByText(/Por:/i)).not.toBeInTheDocument();
+  });
 });
