@@ -11,7 +11,7 @@ function SearchInput({
     searchTerm,
     initializeSearch,
     initialSearchTerm,
-    resetStore
+    // resetStore <- Removido porque não é usado aqui
   } = useBookStore();
 
   // Estado local para o valor digitado no input

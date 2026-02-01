@@ -1,6 +1,5 @@
 import React, {
-  useEffect,
-  useCallback
+  useEffect
 } from 'react';
 import './App.css'; // Assumindo que existe um App.css para estilos
 

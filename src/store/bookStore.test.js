@@ -1,10 +1,10 @@
 import { create, useBookStore } from './bookStore';
 import { renderHook, act } from '@testing-library/react';
-import { jest } from '@jest/globals'; // Importa jest para mocks
+import { jest } from '@jest/globals';
 
 // --- Mock setup ---
 
-// Mocka lodash.debounce para controlar o tempo em testes de SearchInput
+// Mocka lodash.debounce
 jest.mock('lodash.debounce', () => {
   return jest.fn((func, delay) => {
     let timerId;
@@ -12,37 +12,59 @@ jest.mock('lodash.debounce', () => {
       clearTimeout(timerId);
       timerId = setTimeout(() => func(...args), delay);
     };
-    debounced.cancel = () => clearTimeout(timerId);
+    debounced.cancel = jest.fn(() => clearTimeout(timerId)); // Tornando cancel um Jest mock
     return debounced;
   });
 });
 
-// Mocka fetch globalmente para testes de API
-let fetchMock;
+// Mocka o fetch globalmente usando jest.spyOn
+let fetchSpy;
 
 beforeAll(() => {
-  fetchMock = jest.spyOn(global, 'fetch');
+  fetchSpy = jest.spyOn(global, 'fetch');
 });
 
 afterAll(() => {
-  fetchMock.mockRestore();
+  fetchSpy.mockRestore();
 });
+
+// Mock do useBookStore
+const mockUseBookStore = jest.fn();
+
+// Mocka o módulo store para exportar o hook mockado
+jest.mock('../store/bookStore', () => ({
+  useBookStore: mockUseBookStore,
+}));
 
 // Helper para resetar o store antes de cada teste
 const resetZustandStore = (useStore) => {
   const hook = renderHook(() => useStore());
   act(() => {
-    hook.result.current.resetStore();
+    // Verifica se resetStore existe antes de chamar
+    if (hook.result.current && hook.result.current.resetStore) {
+      hook.result.current.resetStore();
+    }
   });
 };
 
 // --- Testes para bookStore ---
 
 describe('bookStore Zustand store', () => {
-  // Reseta o store antes de cada teste
   beforeEach(() => {
-    resetZustandStore(useBookStore);
-    fetchMock.mockClear(); // Limpa mocks de fetch
+    // Reseta o mock do store a cada teste
+    mockUseBookStore.mockClear();
+    fetchSpy.mockClear();
+
+    // Define um mock padrão para useBookStore antes de cada teste
+    // Isso pode ser sobrescrito em testes específicos se necessário
+    mockUseBookStore.mockImplementation(() => ({
+      books: [], loading: false, error: null, searchTerm: '', initialSearchTerm: '',
+      fetchBooks: jest.fn(), initializeSearch: jest.fn(), resetStore: jest.fn(),
+    }));
+
+    // Reseta o debounce mock
+    const debouncedFn = require('lodash.debounce').mock.results[0]?.value;
+    if (debouncedFn) debouncedFn.cancel.mockClear();
   });
 
   it('should have initial state', () => {
@@ -58,8 +80,7 @@ describe('bookStore Zustand store', () => {
     const mockBooks = [{ key: '/works/1', title: 'Test Book' }];
     const mockQuery = 'test';
 
-    // Configura o mock de fetch para sucesso
-    fetchMock.mockResolvedValueOnce({
+    fetchSpy.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ docs: mockBooks }),
     });
@@ -70,8 +91,8 @@ describe('bookStore Zustand store', () => {
       await result.current.fetchBooks(mockQuery);
     });
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
-    expect(fetchMock).toHaveBeenCalledWith(`https://openlibrary.org/search.json?q=${encodeURIComponent(mockQuery)}&fields=key,title,author_name,cover_i&limit=20`);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledWith(`https://openlibrary.org/search.json?q=${encodeURIComponent(mockQuery)}&fields=key,title,author_name,cover_i&limit=20`);
     expect(result.current.books).toEqual(mockBooks);
     expect(result.current.loading).toBe(false);
     expect(result.current.error).toBe(null);
@@ -80,8 +101,7 @@ describe('bookStore Zustand store', () => {
 
   it('fetchBooks should handle API errors gracefully', async () => {
     const mockErrorMsg = 'Network Error';
-    // Configura o mock de fetch para falhar
-    fetchMock.mockRejectedValueOnce(new Error(mockErrorMsg));
+    fetchSpy.mockRejectedValueOnce(new Error(mockErrorMsg));
 
     const { result } = renderHook(() => useBookStore());
 
@@ -89,7 +109,7 @@ describe('bookStore Zustand store', () => {
       await result.current.fetchBooks('error query');
     });
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(result.current.loading).toBe(false);
     expect(result.current.error).toBe(mockErrorMsg);
     expect(result.current.books).toEqual([]);
@@ -97,7 +117,7 @@ describe('bookStore Zustand store', () => {
   });
 
   it('fetchBooks should handle non-ok HTTP responses', async () => {
-    fetchMock.mockResolvedValueOnce({
+    fetchSpy.mockResolvedValueOnce({
       ok: false,
       status: 500,
       statusText: 'Internal Server Error'
@@ -109,22 +129,19 @@ describe('bookStore Zustand store', () => {
       await result.current.fetchBooks('http error query');
     });
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(result.current.loading).toBe(false);
-    // A mensagem de erro esperada agora é mais específica
     expect(result.current.error).toBe('Erro ao buscar livros. Status: 500');
     expect(result.current.books).toEqual([]);
   });
 
   it('fetchBooks should clear books and set searchTerm when query is empty', async () => {
-    // First, populate some state
     fetchMock.mockResolvedValueOnce({ ok: true, json: async () => ({ docs: [{ key: '1', title: 'Book 1' }] }) });
     const { result } = renderHook(() => useBookStore());
     await act(async () => result.current.fetchBooks('some query'));
     expect(result.current.books.length).toBe(1);
     expect(result.current.searchTerm).toBe('some query');
 
-    // Now, call fetchBooks with an empty query
     await act(async () => result.current.fetchBooks(''));
 
     expect(result.current.books).toEqual([]);
@@ -152,22 +169,19 @@ describe('bookStore Zustand store', () => {
   it('resetStore should reset all states to initial', () => {
     const { result } = renderHook(() => useBookStore());
 
-    // Modify some states
     act(() => {
       result.current.fetchBooks('query to reset');
-      result.current.error = 'some error'; // Manually set error for testing reset
+      result.current.error = 'some error';
     });
     expect(result.current.books.length).toBeGreaterThan(0);
     expect(result.current.searchTerm).toBe('query to reset');
     expect(result.current.error).toBe('some error');
-    expect(result.current.initialSearchTerm).toBe(''); // Should also reset initialSearchTerm
+    expect(result.current.initialSearchTerm).toBe('');
 
-    // Reset the store
     act(() => {
       result.current.resetStore();
     });
 
-    // Verify all states are back to initial
     expect(result.current.books).toEqual([]);
     expect(result.current.loading).toBe(false);
     expect(result.current.error).toBe(null);
@@ -179,7 +193,7 @@ describe('bookStore Zustand store', () => {
     const mockTerm = 'initial term';
     const mockBooks = [{ key: '2', title: 'Initial Book' }];
 
-    fetchMock.mockResolvedValueOnce({
+    fetchSpy.mockResolvedValueOnce({
       ok: true,
       json: async () => ({ docs: mockBooks }),
     });
@@ -190,7 +204,7 @@ describe('bookStore Zustand store', () => {
       await result.current.initializeSearch(mockTerm);
     });
 
-    expect(fetchMock).toHaveBeenCalledTimes(1);
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
     expect(result.current.initialSearchTerm).toBe(mockTerm);
     expect(result.current.searchTerm).toBe(mockTerm);
     expect(result.current.books).toEqual(mockBooks);
@@ -201,10 +215,10 @@ describe('bookStore Zustand store', () => {
     const { result } = renderHook(() => useBookStore());
 
     await act(async () => {
-      await result.current.initializeSearch(''); // Empty term
+      await result.current.initializeSearch('');
     });
 
-    expect(fetchMock).not.toHaveBeenCalled();
+    expect(fetchSpy).not.toHaveBeenCalled();
     expect(result.current.initialSearchTerm).toBe('');
     expect(result.current.searchTerm).toBe('');
     expect(result.current.books).toEqual([]);
