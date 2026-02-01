@@ -1,6 +1,10 @@
 import { create } from 'zustand';
+import { devtools } from 'zustand/middleware'
 
-// Define a interface básica para um livro (ajuste conforme a API)
+// Constante para o número de livros por página/requisição
+const BOOKS_PER_PAGE = 20;
+
+// Definindo um tipo básico para Book para clareza (não executável em JS puro)
 // interface Book {
 //   key: string;
 //   title: string;
@@ -8,41 +12,66 @@ import { create } from 'zustand';
 //   cover_i?: number;
 // }
 
-// O estado inicial do nosso store
+// Estado inicial mais robusto
 const initialState = {
   books: [],
   loading: false,
   error: null,
   searchTerm: '',
+  initialSearchTerm: '', // Novo: para termo de busca inicial
 };
 
-// Cria o store com Zustand
-export const useBookStore = create((set) => ({
-  ...initialState,
+export const useBookStore = create(
+  devtools((
+    set,
+    get
+  ) => ({
+    ...initialState,
 
-  // Ação para buscar livros
-  fetchBooks: async (query) => {
-    set({ loading: true, error: null, searchTerm: query });
-    if (!query) {
-      set({ books: [], loading: false, error: null });
-      return;
-    }
-    try {
-      // Assumindo que a URL da API do OpenLibrary é esta
-      // A estrutura da query pode precisar de ajuste dependendo de como o frontend lida com paginacao/resultados
-      const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&fields=key,title,author_name,cover_i&limit=20`);
-      if (!response.ok) {
-        throw new Error(`HTTP error! status: ${response.status}`);
+    // Ação para buscar livros
+    fetchBooks: async (query) => {
+      set({ loading: true, error: null, searchTerm: query });
+      if (!query) {
+        // Se a query estiver vazia, limpa os livros e para o loading
+        set({ books: [], loading: false });
+        return;
       }
-      const data = await response.json();
-      // A API do OpenLibrary retorna os resultados em 'docs'
-      set({ books: data.docs || [], loading: false });
-    } catch (err) {
-      console.error("Error fetching books:", err);
-      set({ error: err.message, loading: false });
-    }
-  },
+      try {
+        // Utiliza a constante BOOKS_PER_PAGE
+        const response = await fetch(`https://openlibrary.org/search.json?q=${encodeURIComponent(query)}&fields=key,title,author_name,cover_i&limit=${BOOKS_PER_PAGE}`);
+        if (!response.ok) {
+          // Captura o status HTTP para uma mensagem de erro mais útil
+          throw new Error(`Erro ao buscar livros. Status: ${response.status}`);
+        }
+        const data = await response.json();
+        // A API do OpenLibrary retorna os resultados em 'docs'
+        set({ books: data.docs || [], loading: false });
+      } catch (err) {
+        console.error("Error fetching books:", err);
+        // Define uma mensagem de erro mais descritiva
+        set({
+          error: err.message || 'Ocorreu um erro desconhecido ao buscar livros.',
+          loading: false,
+          books: [], // Limpa os livros em caso de erro
+        });
+      }
+    },
 
-  // Limpa os resultados da busca, por exemplo, ao limpar o input
-  clearBooks: () => set({ books: [], searchTerm: '', error: null }),
-}));
+    // Ação para limpar os resultados da busca
+    clearBooks: () => set({ books: [], searchTerm: '' }),
+
+    // Nova ação para resetar completamente o store ao estado inicial
+    resetStore: () => set(initialState),
+
+    // Função para inicializar a busca com um termo pré-definido
+    initializeSearch: async (term) => {
+      if (term) {
+        set({ initialSearchTerm: term }); // Salva o termo inicial
+        await get().fetchBooks(term); // Executa a busca
+      }
+    },
+  })),
+  {
+    name: 'bookStore', // Nome para o devtools
+  }
+);
