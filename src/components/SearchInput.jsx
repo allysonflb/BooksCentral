@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import debounce from 'lodash.debounce'; // Importa a função debounce do lodash
 import { useBookStore } from '../store/bookStore';
 
@@ -26,6 +26,16 @@ function SearchInput({ placeholder }) {
     setLocalSearchTerm(term); // Atualiza o estado local
     debouncedSearch(term); // Chama a função debounced para disparar a busca
   };
+
+  // Efeito para garantir que o timer do debounce seja cancelado
+  // quando o componente for desmontado, evitando memory leaks.
+  useEffect(() => {
+    return () => {
+      if (debouncedSearch && debouncedSearch.cancel) {
+        debouncedSearch.cancel(); // Cancela a chamada debounced pendente
+      }
+    };
+  }, [debouncedSearch]); // Executa quando debouncedSearch muda
 
   return (
     <input
