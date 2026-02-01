@@ -24,7 +24,7 @@ export const useBookStore = create((set) => ({
   fetchBooks: async (query) => {
     set({ loading: true, error: null, searchTerm: query });
     if (!query) {
-      set({ books: [], loading: false });
+      set({ books: [], loading: false, error: null });
       return;
     }
     try {
@@ -44,5 +44,5 @@ export const useBookStore = create((set) => ({
   },
 
   // Limpa os resultados da busca, por exemplo, ao limpar o input
-  clearBooks: () => set({ books: [], searchTerm: '' }),
+  clearBooks: () => set({ books: [], searchTerm: '', error: null }),
 }));

@@ -1,20 +1,23 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useMemo } from 'react';
 import debounce from 'lodash.debounce'; // Importa a função debounce do lodash
+import { useBookStore } from '../store/bookStore';
 
-// Assumindo que este componente recebe uma prop 'onSearch' (uma função)
-// e um 'placeholder' opcional.
-function SearchInput({ onSearch, placeholder }) {
+// Componente de busca que usa o store diretamente para disparar a busca
+function SearchInput({ placeholder }) {
   // Estado local para o valor digitado pelo usuário
   const [localSearchTerm, setLocalSearchTerm] = useState('');
+  
+  // Obtém a ação fetchBooks do store
+  const fetchBooks = useBookStore((state) => state.fetchBooks);
 
-  // Cria uma versão debounced da função onSearch
-  // Isso garante que onSearch só será chamada após o usuário parar de digitar
+  // Cria uma versão debounced da função fetchBooks usando useMemo
+  // Isso garante que fetchBooks só será chamada após o usuário parar de digitar
   // por um curto período (500ms neste caso).
-  const debouncedSearch = useCallback(
-    debounce((term) => {
-      onSearch(term);
+  const debouncedSearch = useMemo(
+    () => debounce((term) => {
+      fetchBooks(term);
     }, 500), // 500ms de delay
-    [onSearch] // Dependência: a função onSearch
+    [fetchBooks] // Dependência: a função fetchBooks
   );
 
   // Manipula a mudança no input
@@ -23,14 +26,6 @@ function SearchInput({ onSearch, placeholder }) {
     setLocalSearchTerm(term); // Atualiza o estado local
     debouncedSearch(term); // Chama a função debounced para disparar a busca
   };
-
-  // Efeito para garantir que o timer do debounce seja cancelado
-  // quando o componente for desmontado, evitando memory leaks.
-  useEffect(() => {
-    return () => {
-      debouncedSearch.cancel(); // Cancela a chamada debounced pendente
-    };
-  }, [debouncedSearch]); // Executa quando debouncedSearch muda
 
   return (
     <input

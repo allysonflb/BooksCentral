@@ -3,8 +3,8 @@ import React from 'react';
 // Componente simples de spinner de carregamento
 function LoadingSpinner() {
   return (
-    <div className="loading-spinner-container">
-      <div className="loading-spinner"></div>
+    <div className="loading-spinner-container" role="status" aria-live="polite">
+      <div className="loading-spinner" aria-hidden="true"></div>
       <p>Carregando...</p>
     </div>
   );
