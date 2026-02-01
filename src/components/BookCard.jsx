@@ -19,7 +19,7 @@ function BookCard({ book }) {
       )}
       <div className="book-card-info">
         <h3 className="book-card-title">{book.title}</h3>
-        {book.author_name && (
+        {book.author_name && book.author_name.length > 0 && (
           <p className="book-card-author">Por: {book.author_name.join(', ')}</p>
         )}
         {/* Poderia adicionar mais detalhes aqui, como ano de publicação, etc. */}
