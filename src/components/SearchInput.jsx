@@ -1,50 +1,65 @@
-import React, { useState, useMemo, useEffect } from 'react';
-import debounce from 'lodash.debounce'; // Importa a função debounce do lodash
-import { useBookStore } from '../store/bookStore';
+import React, { useState, useEffect, useCallback } from 'react';
+import { useBookStore } from '../store/bookStore'; // Importa o store Zustand
+import debounce from 'lodash.debounce';
 
-// Componente de busca que usa o store diretamente para disparar a busca
-function SearchInput({ placeholder }) {
-  // Estado local para o valor digitado pelo usuário
-  const [localSearchTerm, setLocalSearchTerm] = useState('');
-  
-  // Obtém a ação fetchBooks do store
-  const fetchBooks = useBookStore((state) => state.fetchBooks);
+function SearchInput({
+  placeholder
+}) {
+  // Obtém as ações e estados do store
+  const {
+    fetchBooks,
+    searchTerm,
+    initializeSearch,
+    initialSearchTerm,
+    resetStore
+  } = useBookStore();
 
-  // Cria uma versão debounced da função fetchBooks usando useMemo
-  // Isso garante que fetchBooks só será chamada após o usuário parar de digitar
-  // por um curto período (500ms neste caso).
-  const debouncedSearch = useMemo(
-    () => debounce((term) => {
+  // Estado local para o valor digitado no input
+  const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm || '');
+
+  // Efeito para inicializar a busca ou sincronizar o termo no input
+  useEffect(() => {
+    // Se houver um termo inicial configurado no store (e o input ainda não foi alterado),
+    // utiliza esse termo inicial para a busca.
+    if (initialSearchTerm && !localSearchTerm) {
+      initializeSearch(initialSearchTerm);
+      setLocalSearchTerm(initialSearchTerm); // Atualiza o valor do input para refletir o termo inicial
+    } else if (!initialSearchTerm && searchTerm && localSearchTerm !== searchTerm) {
+      // Se não há termo inicial mas o searchTerm do store mudou (ex: após um reload),
+      // sincroniza o input com o searchTerm do store.
+      setLocalSearchTerm(searchTerm);
+    }
+  }, [initializeSearch, searchTerm, initialSearchTerm, localSearchTerm]);
+
+  // Função debounced para chamar fetchBooks
+  const debouncedSearch = useCallback(
+    debounce((term) => {
       fetchBooks(term);
-    }, 500), // 500ms de delay
-    [fetchBooks] // Dependência: a função fetchBooks
+    }, 500),
+    [fetchBooks] // Dependência: a ação fetchBooks do store
   );
 
-  // Manipula a mudança no input
   const handleInputChange = (event) => {
     const term = event.target.value;
-    setLocalSearchTerm(term); // Atualiza o estado local
-    debouncedSearch(term); // Chama a função debounced para disparar a busca
+    setLocalSearchTerm(term);
+    debouncedSearch(term);
   };
 
-  // Efeito para garantir que o timer do debounce seja cancelado
-  // quando o componente for desmontado, evitando memory leaks.
+  // Limpa o debounce pendente ao desmontar o componente
   useEffect(() => {
     return () => {
-      if (debouncedSearch && debouncedSearch.cancel) {
-        debouncedSearch.cancel(); // Cancela a chamada debounced pendente
-      }
+      debouncedSearch.cancel();
     };
-  }, [debouncedSearch]); // Executa quando debouncedSearch muda
+  }, [debouncedSearch]);
 
   return (
     <input
       type="text"
-      placeholder={placeholder || "Buscar livros..."} // Placeholder padrão
+      placeholder={placeholder || "Buscar livros..."}
       value={localSearchTerm}
       onChange={handleInputChange}
-      className="search-input" // Uma classe CSS básica para estilização, se necessário
-      aria-label="Book search input" // Para acessibilidade
+      className="search-input"
+      aria-label="Book search input"
     />
   );
 }
