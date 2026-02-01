@@ -1,6 +1,4 @@
-import React, {
-  useEffect,
-  useCallback } from 'react';
+import React from 'react';
 import './App.css'; // Assumindo que existe um App.css para estilos
 
 // Importa o store Zustand
@@ -13,21 +11,8 @@ import LoadingSpinner from './components/LoadingSpinner';
 import ErrorMessage from './components/ErrorMessage';
 
 function App() {
-  // Seleciona partes do estado e ações do store
-  const { books, loading, error, searchTerm, fetchBooks, clearBooks } = useBookStore();
-
-  // Função para lidar com a busca, que será passada para SearchInput
-  // Já que SearchInput agora chama fetchBooks diretamente do store, esta função
-  // pode não ser estritamente necessária aqui, mas mantemos para demonstração caso haja lógica adicional.
-  // Ou, se SearchInput NÃO for mais receber onSearch como prop, esta parte muda.
-  // Vamos assumir que SearchInput direto chama fetchBooks do store.
-
-  // Exemplo de como limpar a busca ao desmontar o App (opcional)
-  // useEffect(() => {
-  //   return () => {
-  //     clearBooks();
-  //   };
-  // }, [clearBooks]);
+  // Seleciona partes do estado do store
+  const { books, loading, error, searchTerm } = useBookStore();
 
   return (
     <div className="App">
