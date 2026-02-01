@@ -1,25 +1,18 @@
 import React from 'react';
 import { render, screen, act, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+// import userEvent from '@testing-library/user-event'; // Removido: não usado em App.test.js
+// import debounce from 'lodash.debounce'; // Removido: não usado em App.test.js
 
 import App from './App';
 import { useBookStore } from './store/bookStore';
-import debounce from 'lodash.debounce'; // Para mockar
 
 // --- Mock setup ---
 
-// Mocka lodash.debounce
-jest.mock('lodash.debounce', () => {
-  return jest.fn((func, delay) => {
-    let timerId;
-    const debounced = (...args) => {
-      clearTimeout(timerId);
-      timerId = setTimeout(() => func(...args), delay);
-    };
-    debounced.cancel = () => clearTimeout(timerId);
-    return debounced;
-  });
-});
+// Mocka lodash.debounce (necessário se SearchInput o usar e App o renderizar de alguma forma)
+// Mesmo que não seja usado diretamente em App.test.js, é uma dependência do componente que o App usa.
+// Se não estivermos testando a interação do debounce aqui, podemos remover este mock de App.test.js.
+// No entanto, para manter a consistência com os mocks globais, vou deixar comentado por enquanto.
+// jest.mock('lodash.debounce', ...);
 
 // Mocka todos os componentes para isolar o teste do App
 jest.mock('./components/SearchInput', () => ({ __esModule: true, default: jest.fn() }));
@@ -39,6 +32,7 @@ let mockStore = {
   searchTerm: '',
   initialSearchTerm: '',
   resetStore: mockResetStore,
+  setSearchTerm: mockSetSearchTerm,
   loading: false,
   error: null,
   books: [],
@@ -50,20 +44,14 @@ describe('App Component', () => {
   beforeEach(() => {
     jest.clearAllMocks();
 
-    const mockDebounce = require('lodash.debounce');
-    mockDebounce.mockClear();
-    mockDebounce.mockImplementation((func, delay) => {
-      let timerId;
-      const debounced = (...args) => {
-        clearTimeout(timerId);
-        timerId = setTimeout(() => func(...args), delay);
-      };
-      debounced.cancel = () => clearTimeout(timerId);
-      return debounced;
-    });
-
+    // Restaura o mock do useBookStore para cada teste
     mockStore = {
-      fetchBooks: mockFetchBooks, initializeSearch: mockInitializeSearch, searchTerm: '', initialSearchTerm: '', resetStore: mockResetStore, setSearchTerm: mockSetSearchTerm,
+      fetchBooks: mockFetchBooks,
+      initializeSearch: mockInitializeSearch,
+      searchTerm: '',
+      initialSearchTerm: '',
+      resetStore: mockResetStore,
+      setSearchTerm: mockSetSearchTerm,
       loading: false, error: null, books: []
     };
     useBookStore.mockImplementation(() => mockStore);
@@ -72,13 +60,14 @@ describe('App Component', () => {
   it('renders header and main content area', () => {
     render(<App />);
     expect(screen.getByText(/Biblioteca Virtual/i)).toBeInTheDocument();
-    expect(screen.getByRole('textbox', { name: /Book search input/i })).toBeInTheDocument();
+    // Verifica se o mock do SearchInput foi chamado (renderizado)
+    expect(require('./components/SearchInput').default).toHaveBeenCalled();
   });
 
   it('calls initializeSearch on mount if initialSearchTerm is present and no searchTerm', async () => {
     const initialTerm = 'Initial Book';
     mockStore.initialSearchTerm = initialTerm;
-    mockStore.searchTerm = ''; // Ensure searchTerm is empty
+    mockStore.searchTerm = ''; 
 
     render(<App />);
 
@@ -102,14 +91,16 @@ describe('App Component', () => {
   it('displays LoadingSpinner when loading is true', () => {
     mockStore.loading = true;
     render(<App />);
-    expect(require('./components/LoadingSpinner')).toHaveBeenCalled();
+    // Asserção corrigida para usar .default
+    expect(require('./components/LoadingSpinner').default).toHaveBeenCalled();
   });
 
   it('displays ErrorMessage when error is present', () => {
     const errorMessage = 'API Error';
     mockStore.error = errorMessage;
     render(<App />);
-    expect(require('./components/ErrorMessage')).toHaveBeenCalledWith({ message: errorMessage }, expect.anything());
+    // Asserção corrigida para usar .default
+    expect(require('./components/ErrorMessage').default).toHaveBeenCalledWith({ message: errorMessage }, expect.anything());
   });
 
   it('displays no results message when books are empty and searchTerm is present', () => {
@@ -123,7 +114,6 @@ describe('App Component', () => {
   });
 
   it('displays initial prompt when no search has been made and no books are found', () => {
-    // Store is already in initial state from beforeEach
     render(<App />);
     expect(screen.getByText(/Comece a buscar por um livro!/i)).toBeInTheDocument();
   });
@@ -140,9 +130,10 @@ describe('App Component', () => {
 
     render(<App />);
 
-    expect(require('./components/BookCard')).toHaveBeenCalledTimes(mockBooks.length);
-    expect(require('./components/BookCard')).toHaveBeenCalledWith({ book: mockBooks[0] }, expect.anything());
-    expect(require('./components/BookCard')).toHaveBeenCalledWith({ book: mockBooks[1] }, expect.anything());
+    // Asserção corrigida para usar .default
+    expect(require('./components/BookCard').default).toHaveBeenCalledTimes(mockBooks.length);
+    expect(require('./components/BookCard').default).toHaveBeenCalledWith({ book: mockBooks[0] }, expect.anything());
+    expect(require('./components/BookCard').default).toHaveBeenCalledWith({ book: mockBooks[1] }, expect.anything());
   });
 
   it('calls resetStore on unmount', () => {
